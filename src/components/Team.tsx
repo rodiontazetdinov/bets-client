@@ -32,7 +32,7 @@ export const Team: FC<TeamProps> = ({
     }
   }
   return (
-    <li className={`${isOpen ? "bg-gray-300" : "bg-gray-100"} w-full flex flex-col border-gray-200 border p-4`} onClick={() => setIsOpen(!isOpen)}>
+    <li className={`${isOpen ? "bg-gray-300" : "bg-gray-100"} w-full flex flex-col border-gray-200 border p-4`} onClick={() => !isOpen && setIsOpen(!isOpen)}>
       <p className="text-[18px] font-bold text-gray-900 p-2 truncate">{teamName}</p>
       {isOpen && (
         <>

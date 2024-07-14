@@ -6,7 +6,7 @@ interface FilterButtonsProps {
 
 export const FilterButtons: FC<FilterButtonsProps> = ({ onFilter }) => {
     return (
-        <ul className="flex gap-2 p-4">
+        <ul className="flex gap-1 p-2">
             <li className="bg-sky-500  flex flex-col rounded-md w-[250px] border p-1">
                 <button className="p-1 text-[18px] font-bold text-white flex items-center gap-2 w-full h-full justify-center" onClick={() => onFilter('Social Web3')}>Social Web3</button>
             </li>
