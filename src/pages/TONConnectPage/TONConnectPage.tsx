@@ -20,6 +20,8 @@ export const TONConnectPage: FC = () => {
   const wallet = useTonWallet();
   const utils = useUtils();
 
+  console.log('wallet', wallet);
+
   if (!wallet) {
     return (
       <Placeholder

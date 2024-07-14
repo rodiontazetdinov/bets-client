@@ -20,6 +20,13 @@ export const IndexPage: FC = () => {
             TON Connect
           </Cell>
         </Link>
+        <Link to='/bets'>
+          <Cell
+            subtitle='Bets page'
+          >
+            Bets
+          </Cell>
+        </Link>
       </Section>
       <Section
         header='Application Launch Data'
