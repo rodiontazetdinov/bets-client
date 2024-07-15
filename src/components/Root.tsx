@@ -35,11 +35,11 @@ const Inner: FC = () => {
   }, [debug]);
 
   return (
-    // <TwaAnalyticsProvider
-    //   projectId="f3e336f0-31f4-4e8b-a943-8f03308f2798"
-    //   apiKey="b89d1bb2-9bb2-405e-b534-3ced2869eb60"
-    //   appName="hackaTON Bets"
-    // >
+    <TwaAnalyticsProvider
+      projectId="f3e336f0-31f4-4e8b-a943-8f03308f2798"
+      apiKey="b89d1bb2-9bb2-405e-b534-3ced2869eb60"
+      appName="hackaTON Bets"
+    >
       <TonConnectUIProvider
         manifestUrl={manifestUrl}
         actionsConfiguration={{
@@ -50,7 +50,7 @@ const Inner: FC = () => {
           <App />
         </SDKProvider>
       </TonConnectUIProvider>
-    // {/* </TwaAnalyticsProvider> */}
+    </TwaAnalyticsProvider>
   );
 };
 
