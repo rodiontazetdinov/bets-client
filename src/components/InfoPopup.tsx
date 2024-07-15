@@ -13,20 +13,20 @@ export const InfoPopup: FC<InfoPopupProps> = ({ onClose }) => {
       onClick={() => onClose()}
     >
       <h2 className="text-2xl font-semibold mb-4">Как это работает?</h2>
-      <p className="text-lg mb-6">
+      <p className="text-lg mb-4">
         🥷 В приложении собраны полуфиналисты хакатона открытой лиги. Можно
         отфильтровать проекты по трэку, почекать описание проекта и MVP
       </p>
-      <p className="text-lg mb-6">
+      <p className="text-lg mb-0">
         🚀 Если ты считаешь что проект пройдёт в финал, можешь проголосать за
         него (1 TON), все кто угадали финалистов разделят пул всех голосов пропорционально по количеству голосов, fee
         10% <span className="text-red-500">(контракт пока в разработке)</span>
       </p>
       <div className="flex flex-col">
-      <a className="text-lg mb-6 text-yellow-300  border-b p-1" href="https://t.me/alefmanv">
+      <a className="text-lg mb-4 text-yellow-300  border-b p-1" href="https://t.me/alefmanv">
       ✍️ канал хакатона
       </a>
-      <a className="text-lg mb-6 text-yellow-300  p-1 border-b" href="https://t.me/alefmanv">
+      <a className="text-lg mb-4 text-yellow-300  p-1 border-b" href="https://t.me/alefmanv">
       ✍️ канал приложения
       </a>
       </div>
