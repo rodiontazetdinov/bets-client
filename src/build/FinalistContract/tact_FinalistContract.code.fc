@@ -1,0 +1,153 @@
+#pragma version =0.4.4;
+#pragma allow-post-modification;
+#pragma compute-asm-ltr;
+
+#include "tact_FinalistContract.headers.fc";
+#include "tact_FinalistContract.stdlib.fc";
+#include "tact_FinalistContract.storage.fc";
+
+;;
+;; Contract FinalistContract functions
+;;
+
+(cell, cell, int) $FinalistContract$_contract_init() impure inline_ref {
+    var (($self'finalistList, $self'startFinalistList, $self'finalistIndex)) = (null(), null(), null());
+    $self'finalistList = null();
+    $self'startFinalistList = null();
+    $self'finalistIndex = 0;
+    return ($self'finalistList, $self'startFinalistList, $self'finalistIndex);
+}
+
+((cell, cell, int), cell) $FinalistContract$_fun_allItems((cell, cell, int) $self) impure inline_ref {
+    var (($self'finalistList, $self'startFinalistList, $self'finalistIndex)) = $self;
+    return (($self'finalistList, $self'startFinalistList, $self'finalistIndex), $self'finalistList);
+}
+
+((cell, cell, int), cell) $FinalistContract$_fun_startFinalists((cell, cell, int) $self) impure inline_ref {
+    var (($self'finalistList, $self'startFinalistList, $self'finalistIndex)) = $self;
+    return (($self'finalistList, $self'startFinalistList, $self'finalistIndex), $self'startFinalistList);
+}
+
+;;
+;; Receivers of a Contract FinalistContract
+;;
+
+(((cell, cell, int)), ()) $FinalistContract$_internal_binary_FinalistMessage((cell, cell, int) $self, ((slice, slice, int)) $msg) impure inline {
+    var ($self'finalistList, $self'startFinalistList, $self'finalistIndex) = $self;
+    var (($msg'item'teamName, $msg'item'teamLink, $msg'item'teamPlace)) = $msg;
+    $self'finalistList~__tact_dict_set_int_cell(257, $self'finalistIndex, $Finalist$_store_cell(($msg'item'teamName, $msg'item'teamLink, $msg'item'teamPlace)));
+    $self'finalistIndex = ($self'finalistIndex + 1);
+    return (($self'finalistList, $self'startFinalistList, $self'finalistIndex), ());
+}
+
+(((cell, cell, int)), ()) $FinalistContract$_internal_binary_StartFinalists((cell, cell, int) $self, (cell) $msg) impure inline {
+    var ($self'finalistList, $self'startFinalistList, $self'finalistIndex) = $self;
+    var ($msg'items) = $msg;
+    $self'finalistList = $msg'items;
+    return (($self'finalistList, $self'startFinalistList, $self'finalistIndex), ());
+}
+
+(((cell, cell, int)), ()) $FinalistContract$_internal_binary_Deploy((cell, cell, int) $self, (int) $deploy) impure inline {
+    var ($self'finalistList, $self'startFinalistList, $self'finalistIndex) = $self;
+    var ($deploy'queryId) = $deploy;
+    ($self'finalistList, $self'startFinalistList, $self'finalistIndex)~$FinalistContract$_fun_notify($DeployOk$_store_cell($DeployOk$_constructor_queryId($deploy'queryId)));
+    return (($self'finalistList, $self'startFinalistList, $self'finalistIndex), ());
+}
+
+;;
+;; Get methods of a Contract FinalistContract
+;;
+
+_ %allItems() method_id(68968) {
+    var self = $FinalistContract$_contract_load();
+    var res = self~$FinalistContract$_fun_allItems();
+    return res;
+}
+
+_ %startFinalists() method_id(80172) {
+    var self = $FinalistContract$_contract_load();
+    var res = self~$FinalistContract$_fun_startFinalists();
+    return res;
+}
+
+_ supported_interfaces() method_id {
+    return (
+        "org.ton.introspection.v0"H >> 128,
+        "org.ton.abi.ipfs.v0"H >> 128,
+        "org.ton.deploy.lazy.v0"H >> 128,
+        "org.ton.debug.v0"H >> 128,
+        "org.ton.chain.workchain.v0"H >> 128
+    );
+}
+
+_ get_abi_ipfs() method_id {
+    return "ipfs://QmQFhGhUMNeXXEpvvdhix1X7Fkp2Dn7ax7WWUhZCkxs1Uk";
+}
+
+_ lazy_deployment_completed() method_id {
+    return get_data().begin_parse().load_int(1);
+}
+
+;;
+;; Routing of a Contract FinalistContract
+;;
+
+((cell, cell, int), int) $FinalistContract$_contract_router_internal((cell, cell, int) self, int msg_bounced, slice in_msg) impure inline_ref {
+    ;; Handle bounced messages
+    if (msg_bounced) {
+        return (self, true);
+    }
+    
+    ;; Parse incoming message
+    int op = 0;
+    if (slice_bits(in_msg) >= 32) {
+        op = in_msg.preload_uint(32);
+    }
+    
+    
+    ;; Receive FinalistMessage message
+    if (op == 2508316222) {
+        var msg = in_msg~$FinalistMessage$_load();
+        self~$FinalistContract$_internal_binary_FinalistMessage(msg);
+        return (self, true);
+    }
+    
+    ;; Receive StartFinalists message
+    if (op == 1275335222) {
+        var msg = in_msg~$StartFinalists$_load();
+        self~$FinalistContract$_internal_binary_StartFinalists(msg);
+        return (self, true);
+    }
+    
+    ;; Receive Deploy message
+    if (op == 2490013878) {
+        var msg = in_msg~$Deploy$_load();
+        self~$FinalistContract$_internal_binary_Deploy(msg);
+        return (self, true);
+    }
+    
+    return (self, false);
+}
+
+() recv_internal(int msg_value, cell in_msg_cell, slice in_msg) impure {
+    
+    ;; Context
+    var cs = in_msg_cell.begin_parse();
+    var msg_flags = cs~load_uint(4);
+    var msg_bounced = -(msg_flags & 1);
+    slice msg_sender_addr = __tact_verify_address(cs~load_msg_addr());
+    __tact_context = (msg_bounced, msg_sender_addr, msg_value, cs);
+    __tact_context_sender = msg_sender_addr;
+    
+    ;; Load contract data
+    var self = $FinalistContract$_contract_load();
+    
+    ;; Handle operation
+    int handled = self~$FinalistContract$_contract_router_internal(msg_bounced, in_msg);
+    
+    ;; Throw if not handled
+    throw_unless(130, handled);
+    
+    ;; Persist state
+    $FinalistContract$_contract_store(self);
+}

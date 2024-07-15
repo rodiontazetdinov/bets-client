@@ -51,7 +51,7 @@ export const Team: FC<TeamProps> = ({
             {teamMVP}
           </a>
           <p className={`text-[18px] font-bold ${handleBackground(teamTrack)} text-white p-2`} text-white>{teamTrack}</p>
-          <button className="text-[18px] font-bold text-white p-2 flex items-center justify-center gap-2 border border-white rounded-full mt-2">Пройдут в финал 1 TON<img className="w-8 h-8" src={rocketIcon} /></button>
+          <button className="text-[18px] font-bold text-white p-2 flex items-center justify-center gap-2 border border-white rounded-full mt-2">Ты победишь <img className="w-8 h-8" src={rocketIcon} />(1 TON)</button>
         </>
       )}
       

@@ -6,14 +6,13 @@ import { Team } from "@/components/Team";
 
 import shuffleIcon from "./../../../assets/shuffle-icon.png";
 import { FilterButtons } from "@/components/FilterButtons";
+import { TonConnectButton } from "@tonconnect/ui-react";
 
 export const BetsPage: FC = () => {
   const [shuffledArray, setShuffledArray] = useState(shuffleArray(semiFinalists));
 
   const shuffle = () => {
     setShuffledArray(()=> shuffleArray([...semiFinalists]));
-    console.log(shuffledArray[0])
-    console.log('sss')
   };
 
   const filterAndShuffle = (filterBy: string) => {
@@ -23,6 +22,7 @@ export const BetsPage: FC = () => {
 
   return (
     <div className="bg-gray-100 w-full h-screen flex flex-col">
+      <TonConnectButton className="m-2 self-end" />
       <h1 className="text-2xl font-bold text-gray-900 p-4">Полуфиналисты:</h1>
       
       <FilterButtons onFilter={filterAndShuffle}/>
