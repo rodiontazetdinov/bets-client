@@ -5,6 +5,7 @@ import { type FC, useEffect, useMemo } from "react";
 
 import { App } from "@/components/App.tsx";
 import { ErrorBoundary } from "@/components/ErrorBoundary.tsx";
+import { APP_NAME, TMA_URL } from "@/utils/config";
 
 const ErrorBoundaryError: FC<{ error: unknown }> = ({ error }) => (
   <div>
