@@ -13,7 +13,7 @@ import { InfoPopup } from "@/components/InfoPopup";
 
 export const BetsPage: FC = () => {
   const [shuffledArray, setShuffledArray] = useState(() => shuffleArray(semiFinalists));
-  const [isInfoPopupVisible, setIsInfoPopupVisible] = useState(false);
+  const [isInfoPopupVisible, setIsInfoPopupVisible] = useState(true);
 
   const shuffle = () => {
     setShuffledArray(()=> shuffleArray([...semiFinalists]));
