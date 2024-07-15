@@ -19,18 +19,26 @@ export const InfoPopup: FC<InfoPopupProps> = ({ onClose }) => {
       </p>
       <p className="text-lg mb-0">
         🚀 Если ты считаешь что проект пройдёт в финал, можешь проголосать за
-        него (1 TON), все кто угадали финалистов разделят пул всех голосов пропорционально по количеству голосов, fee
-        10% <span className="text-red-500">(контракт пока в разработке)</span>
+        него (1 TON), все кто угадали финалистов разделят пул всех голосов
+        пропорционально количеству голосов, fee 10%{" "}
+        <span className="text-red-500">(контракт пока в разработке)</span>
       </p>
       <div className="flex flex-col">
-      <a className="text-lg mb-4 text-yellow-300  border-b p-1" href="https://t.me/alefmanv">
-      ✍️ канал хакатона
-      </a>
-      <a className="text-lg mb-4 text-yellow-300  p-1 border-b" href="https://t.me/alefmanv">
-      ✍️ канал приложения
-      </a>
+        <a
+          className="text-lg mb-4 text-yellow-300  border-b p-1 w-full"
+          href="https://t.me/alefmanv"
+          target="_blank"
+        >
+          ✍️ канал хакатона
+        </a>
+        <a
+          className="text-lg mb-4 text-yellow-300  p-1 border-b w-full"
+          href="https://t.me/alefmanv"
+          target="_blank"
+        >
+          ✍️ канал приложения
+        </a>
       </div>
-      
     </div>
   );
 };
