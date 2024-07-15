@@ -1,5 +1,6 @@
 import { SDKProvider, useLaunchParams } from "@telegram-apps/sdk-react";
 import { TonConnectUIProvider } from "@tonconnect/ui-react";
+import { TwaAnalyticsProvider } from "@tonsolutions/telemetree-react";
 import { type FC, useEffect, useMemo } from "react";
 
 import { App } from "@/components/App.tsx";
@@ -34,16 +35,22 @@ const Inner: FC = () => {
   }, [debug]);
 
   return (
-    <TonConnectUIProvider
-      manifestUrl={manifestUrl}
-      actionsConfiguration={{
-        twaReturnUrl: "https://t.me/why_invalid_bot/hackbets",
-      }}
-    >
-      <SDKProvider acceptCustomStyles debug={debug}>
-        <App />
-      </SDKProvider>
-    </TonConnectUIProvider>
+    // <TwaAnalyticsProvider
+    //   projectId="f3e336f0-31f4-4e8b-a943-8f03308f2798"
+    //   apiKey="b89d1bb2-9bb2-405e-b534-3ced2869eb60"
+    //   appName="hackaTON Bets"
+    // >
+      <TonConnectUIProvider
+        manifestUrl={manifestUrl}
+        actionsConfiguration={{
+          twaReturnUrl: "https://t.me/why_invalid_bot/hackbets",
+        }}
+      >
+        <SDKProvider acceptCustomStyles debug={debug}>
+          <App />
+        </SDKProvider>
+      </TonConnectUIProvider>
+    // {/* </TwaAnalyticsProvider> */}
   );
 };
 

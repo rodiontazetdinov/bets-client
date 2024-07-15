@@ -3,13 +3,17 @@ import { useState, type FC } from "react";
 import { shuffleArray } from "@/utils/helpers";
 import { semiFinalists } from "@/utils/constants";
 import { Team } from "@/components/Team";
-
-import shuffleIcon from "./../../../assets/shuffle-icon.png";
 import { FilterButtons } from "@/components/FilterButtons";
 import { TonConnectButton } from "@tonconnect/ui-react";
 
+import shuffleIcon from "./../../../assets/shuffle-icon.png";
+import infoIcon from "./../../../assets/info-icon.png"
+import { InfoPopup } from "@/components/InfoPopup";
+
+
 export const BetsPage: FC = () => {
-  const [shuffledArray, setShuffledArray] = useState(shuffleArray(semiFinalists));
+  const [shuffledArray, setShuffledArray] = useState(() => shuffleArray(semiFinalists));
+  const [isInfoPopupVisible, setIsInfoPopupVisible] = useState(false);
 
   const shuffle = () => {
     setShuffledArray(()=> shuffleArray([...semiFinalists]));
@@ -21,8 +25,13 @@ export const BetsPage: FC = () => {
   }
 
   return (
+    <>
     <div className="bg-gray-100 w-full h-screen flex flex-col">
-      <TonConnectButton className="m-2 self-end" />
+      <div className="flex flex-row m-4 justify-between">
+        <button onClick={() => setIsInfoPopupVisible(!isInfoPopupVisible)}><img className="w-8 h-8" src={infoIcon} /></button>
+        <TonConnectButton />
+      </div>
+      
       <h1 className="text-2xl font-bold text-gray-900 p-4">Полуфиналисты:</h1>
       
       <FilterButtons onFilter={filterAndShuffle}/>
@@ -40,5 +49,7 @@ export const BetsPage: FC = () => {
         ))}
       </ul>
     </div>
+    {isInfoPopupVisible && <InfoPopup onClose={() => setIsInfoPopupVisible(false)}/>}
+    </>
   );
 };
