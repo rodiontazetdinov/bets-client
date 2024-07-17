@@ -4,11 +4,13 @@ import { shuffleArray } from "@/utils/helpers";
 import { semiFinalists } from "@/utils/constants";
 import { Team } from "@/components/Team";
 import { FilterButtons } from "@/components/FilterButtons";
-import { TonConnectButton } from "@tonconnect/ui-react";
+import { TonConnectButton, useTonConnectUI, useTonWallet } from "@tonconnect/ui-react";
 
 import shuffleIcon from "./../../../assets/shuffle-icon.png";
 import infoIcon from "./../../../assets/info-icon.png"
 import { InfoPopup } from "@/components/InfoPopup";
+import { useTonConnect } from "../../hooks/useTonConnect";
+import { useBettingContract } from "@/hooks/useBettingContract";
 
 
 export const BetsPage: FC = () => {
@@ -23,6 +25,16 @@ export const BetsPage: FC = () => {
     const filteredArray = semiFinalists.filter((team) => team.teamTrack === filterBy);
     setShuffledArray(() => shuffleArray([...filteredArray]));
   }
+
+  const { connected } = useTonConnect();
+  const {betsCounter} = useBettingContract();
+  console.log("betsCounter",betsCounter)
+  // const { connected, wallet } = useTonWallet();
+
+  // console.log('network', network);
+  console.log('connected', connected);
+  // console.log('wallet', wallet);
+  
 
   return (
     <>

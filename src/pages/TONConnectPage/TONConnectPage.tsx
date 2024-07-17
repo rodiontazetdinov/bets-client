@@ -21,6 +21,7 @@ export const TONConnectPage: FC = () => {
   const utils = useUtils();
 
   console.log('wallet', wallet);
+  console.log(utils)
 
   if (!wallet) {
     return (

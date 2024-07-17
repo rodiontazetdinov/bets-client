@@ -5,7 +5,7 @@ import { type FC, useEffect, useMemo } from "react";
 
 import { App } from "@/components/App.tsx";
 import { ErrorBoundary } from "@/components/ErrorBoundary.tsx";
-import { APP_NAME, TMA_URL } from "@/utils/config";
+import { APP_NAME, IS_PRODUCTION, MANIFEST_URL, TMA_URL } from "@/utils/config";
 
 const ErrorBoundaryError: FC<{ error: unknown }> = ({ error }) => (
   <div>
@@ -24,9 +24,7 @@ const ErrorBoundaryError: FC<{ error: unknown }> = ({ error }) => (
 
 const Inner: FC = () => {
   const debug = useLaunchParams().startParam === "debug";
-  const manifestUrl = useMemo(() => {
-    return new URL("tonconnect-manifest.json", window.location.href).toString();
-  }, []);
+  // const manifestUrl = M;
 
   // Enable debug mode to see all the methods sent and events received.
   useEffect(() => {
@@ -42,7 +40,7 @@ const Inner: FC = () => {
       appName={APP_NAME}
     >
       <TonConnectUIProvider
-        manifestUrl={manifestUrl}
+        manifestUrl={MANIFEST_URL}
         actionsConfiguration={{
           twaReturnUrl: TMA_URL,
         }}
@@ -55,8 +53,35 @@ const Inner: FC = () => {
   );
 };
 
+const InnerDev: FC = () => {
+  const debug = useLaunchParams().startParam === "debug";
+  // const manifestUrl = useMemo(() => {
+  //   return new URL("tonconnect-manifest.json", window.location.href).toString();
+  // }, []);
+
+  // Enable debug mode to see all the methods sent and events received.
+  useEffect(() => {
+    if (debug) {
+      import("eruda").then((lib) => lib.default.init());
+    }
+  }, [debug]);
+
+  return (
+      <TonConnectUIProvider
+        manifestUrl={MANIFEST_URL}
+        actionsConfiguration={{
+          twaReturnUrl: TMA_URL,
+        }}
+      >
+        <SDKProvider acceptCustomStyles debug={debug}>
+          <App />
+        </SDKProvider>
+      </TonConnectUIProvider>
+  );
+};
+
 export const Root: FC = () => (
   <ErrorBoundary fallback={ErrorBoundaryError}>
-    <Inner />
+    {IS_PRODUCTION ? <Inner /> : <InnerDev />}
   </ErrorBoundary>
 );

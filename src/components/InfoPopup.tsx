@@ -6,10 +6,11 @@ interface InfoPopupProps {
 
 export const InfoPopup: FC<InfoPopupProps> = ({ onClose }) => {
   return (
-    <div
+    <div className="fixed top-0 left-0 w-full h-full z-50 flex items-center justify-center bg-black bg-opacity-80">
+      <div
       className="fixed top-5 left-1/2 transform -translate-x-1/2 
                 bg-sky-600 bg-opacity-80 text-white px-6 py-8 rounded-lg
-                max-w-md w-11/12"
+                max-w-md w-11/12 "
       onClick={() => onClose()}
     >
       <h2 className="text-2xl font-semibold mb-4">Как это работает?</h2>
@@ -40,5 +41,7 @@ export const InfoPopup: FC<InfoPopupProps> = ({ onClose }) => {
         </a>
       </div>
     </div>
+    </div>
+    
   );
 };
