@@ -9,7 +9,6 @@ interface TeamProps {
   teamLink: string;
   teamMVP: string;
   teamTrack: string;
-  place: string;
 }
 
 export const Team: FC<TeamProps> = ({
@@ -17,26 +16,22 @@ export const Team: FC<TeamProps> = ({
   teamLink,
   teamMVP,
   teamTrack,
-  place,
 }) => {
   const [isOpen, setIsOpen] = useState(false);
   const { connected } = useTonConnect();
 
-  const handleBackground = (place: string) => {
-    if (place?.includes("Social Web3")) {
+  const handleBackground = (teamTrack: string) => {
+    if (teamTrack === "Social Web3") {
       return "bg-sky-500";
     }
-    if (place?.includes("eCommerce")) {
+    if (teamTrack === "eCommerce") {
       return "bg-rose-500";
     }
-    if (place?.includes("GameFI & Onboarding")) {
+    if (teamTrack === "Onboarding systems and games") {
       return "bg-yellow-300";
     }
-    if (place?.includes("DeFi")) {
+    if (teamTrack === "DeFi") {
       return "bg-green-400";
-    }
-    if (place?.includes("Kucoin")) {
-      return "bg-gray-900";
     }
   };
 
@@ -68,11 +63,11 @@ export const Team: FC<TeamProps> = ({
           </a>
           <p
             className={`text-[18px] font-bold ${handleBackground(
-              place
+              teamTrack
             )} text-white p-2`}
             text-white
           >
-            {place}
+            {teamTrack}
           </p>
           <button
             className={cls({

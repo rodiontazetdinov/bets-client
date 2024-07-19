@@ -1,7 +1,7 @@
 import { useState, type FC } from "react";
 
 import { shuffleArray } from "@/utils/helpers";
-import { semiFinalists } from "@/utils/constants";
+import { semiFinalists, realFinalists } from "@/utils/constants";
 import { Team } from "@/components/Team";
 import { FilterButtons } from "@/components/FilterButtons";
 import { TonConnectButton, useTonConnectUI, useTonWallet } from "@tonconnect/ui-react";
@@ -14,27 +14,20 @@ import { useBettingContract } from "@/hooks/useBettingContract";
 
 
 export const BetsPage: FC = () => {
-  const [shuffledArray, setShuffledArray] = useState(() => shuffleArray(semiFinalists));
+  const [shuffledArray, setShuffledArray] = useState(() => shuffleArray(realFinalists));
   const [isInfoPopupVisible, setIsInfoPopupVisible] = useState(true);
 
   const shuffle = () => {
-    setShuffledArray(()=> shuffleArray([...semiFinalists]));
+    setShuffledArray(()=> shuffleArray([...realFinalists]));
   };
 
   const filterAndShuffle = (filterBy: string) => {
-    const filteredArray = semiFinalists.filter((team) => team.teamTrack === filterBy);
+    const filteredArray = realFinalists.filter((team) => team.place === filterBy);
     setShuffledArray(() => shuffleArray([...filteredArray]));
   }
 
   const { connected } = useTonConnect();
   const {betsCounter} = useBettingContract();
-  console.log("betsCounter",betsCounter)
-  // const { connected, wallet } = useTonWallet();
-
-  // console.log('network', network);
-  console.log('connected', connected);
-  // console.log('wallet', wallet);
-  
 
   return (
     <>
@@ -44,7 +37,7 @@ export const BetsPage: FC = () => {
         <TonConnectButton />
       </div>
       
-      <h1 className="text-2xl font-bold text-gray-900 p-4">Полуфиналисты:</h1>
+      <h1 className="text-2xl font-bold text-gray-900 p-4">Финалисты:</h1>
       
       <FilterButtons onFilter={filterAndShuffle}/>
       <button
@@ -56,7 +49,7 @@ export const BetsPage: FC = () => {
       <ul>
         {shuffledArray.map((team) => (
           <li key={team.teamLink}>
-            <Team teamName={team.teamName} teamLink={team.teamLink} teamMVP={team.teamMVP} teamTrack={team.teamTrack}/>
+            <Team teamName={team.teamName} teamLink={team.teamLink} teamMVP={team.teamMVP} teamTrack={team.teamTrack} place={team.place}/>
           </li>
         ))}
       </ul>
